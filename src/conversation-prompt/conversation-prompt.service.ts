@@ -6,7 +6,7 @@ import {
   ConversationCompleteOutput,
 } from "./prompt.dto";
 
-export class PromptService {
+export class ConversationPromptService {
   constructor(private readonly openAIApi: OpenAIApi) {}
 
   async conversationCompletion(

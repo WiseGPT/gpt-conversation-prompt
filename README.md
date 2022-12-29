@@ -6,7 +6,7 @@ Types and utility functions to easily generate OpenAI GPT prompts for chatting w
 
 ```typescript
 import { Configuration, OpenAIApi } from "openai";
-import { AIPersona, ModelConfiguration, PromptService } from "@wisegpt/gpt-conversation-prompt";
+import { AIPersona, ModelConfiguration, ConversationPromptService } from "@wisegpt/gpt-conversation-prompt";
 
 const aiPersona: AIPersona = {
   name: "wiseGPT",
@@ -21,10 +21,10 @@ const modelConfiguration: ModelConfiguration = {
 };
 
 const openAIApi = new OpenAIApi(new Configuration({ apiKey: "<<your-secret>>" }));
-const promptService = new PromptService(openAIApi);
+const conversationPromptService = new ConversationPromptService(openAIApi);
 
 async function exampleUsage() {
-  const { text, usage } = await promptService.conversationCompletion({
+  const { text, usage } = await conversationPromptService.conversationCompletion({
     prompt: {
       conversation: {
         messages: [

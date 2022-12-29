@@ -1,5 +1,5 @@
 import { AIPersona } from "../../src";
-import { createConversationCompletionPrompt } from "../../src/prompt-service/create-conversation-completion-prompt";
+import { createConversationCompletionPrompt } from "../../src/conversation-prompt/create-conversation-completion-prompt";
 
 describe("createConversationCompletionPrompt", () => {
   it("should work with example conversations", () => {
