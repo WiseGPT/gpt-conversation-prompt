@@ -21,9 +21,14 @@ const project = new typescript.TypeScriptProject({
 
   packageManager: javascript.NodePackageManager.NPM,
 
+  tsconfig: { compilerOptions: { skipLibCheck: true } },
+  tsconfigDev: { compilerOptions: { skipLibCheck: true } },
+
   prettier: true,
   projenrcTs: true,
   repository: "https://github.com/wisegpt/gpt-conversation-prompt.git",
+
+  peerDeps: ["openai"],
 });
 
 project.npmignore?.exclude(
