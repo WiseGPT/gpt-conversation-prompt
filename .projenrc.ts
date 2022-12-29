@@ -17,6 +17,7 @@ const project = new typescript.TypeScriptProject({
 
   github: true,
   release: true,
+  releaseToNpm: true,
 
   packageManager: javascript.NodePackageManager.NPM,
 
