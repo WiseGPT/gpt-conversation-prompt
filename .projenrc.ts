@@ -1,16 +1,38 @@
 import { javascript, typescript } from "projen";
+import { NpmAccess } from "projen/lib/javascript";
+
 const project = new typescript.TypeScriptProject({
+  name: "@wisegpt/gpt-conversation-prompt",
+  packageName: "@wisegpt/gpt-conversation-prompt",
+  npmAccess: NpmAccess.PUBLIC,
+  description:
+    "Types and utility functions to easily generate OpenAI GPT prompts for chatting with the AI.",
+  keywords: ["openai", "gpt", "conversation", "chat"],
+
+  workflowNodeVersion: "18.x",
+
+  license: "Unlicense",
+
   defaultReleaseBranch: "main",
-  github: true,
-  name: "gpt-conversation-prompt",
+
+  // TODO: enable after initial version
+  github: false,
+  release: false,
+
   packageManager: javascript.NodePackageManager.NPM,
+
   prettier: true,
   projenrcTs: true,
-  release: true,
-
-  // deps: [],                /* Runtime dependencies of this module. */
-  // description: undefined,  /* The description is just a string that helps people understand the purpose of the package. */
-  // devDeps: [],             /* Build dependencies for this module. */
-  // packageName: undefined,  /* The "name" in package.json. */
+  repository: "https://github.com/wisegpt/gpt-conversation-prompt.git",
 });
+
+project.npmignore?.exclude(
+  "/lib/internal/**",
+  ".DS_Store",
+  ".prettier*",
+  "*.iml",
+  ".projenrc.ts",
+  ".git*"
+);
+
 project.synth();
