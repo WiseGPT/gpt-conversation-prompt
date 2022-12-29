@@ -15,9 +15,8 @@ const project = new typescript.TypeScriptProject({
 
   defaultReleaseBranch: "main",
 
-  // TODO: enable after initial version
-  github: false,
-  release: false,
+  github: true,
+  release: true,
 
   packageManager: javascript.NodePackageManager.NPM,
 
