@@ -1,6 +1,8 @@
 import { OpenAIApi } from "openai";
-import { createConversationCompletionPrompt } from "./create-conversation-completion-prompt";
-import { STATEMENT_SEPARATOR_TOKEN } from "./prompt.constants";
+import {
+  STATEMENT_SEPARATOR_TOKEN,
+  createConversationCompletionPrompt,
+} from "./create-conversation-completion-prompt";
 import {
   ConversationCompleteInput,
   ConversationCompleteOutput,
