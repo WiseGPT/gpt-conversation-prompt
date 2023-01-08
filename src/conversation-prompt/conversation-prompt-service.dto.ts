@@ -1,5 +1,10 @@
 import { CreateCompletionRequest } from "openai";
-import { AIPersona, Conversation } from "../types";
+import {
+  AIPersona,
+  APIResponseHeaders,
+  APIUsageInfo,
+  Conversation,
+} from "../types";
 
 export type ModelConfiguration = Pick<
   CreateCompletionRequest,
@@ -24,11 +29,8 @@ export type ConversationCompleteInput = {
 
 export type ConversationCompleteOutput = {
   text: string;
-  usage: {
-    promptTokens: number;
-    completionTokens: number;
-    totalTokens: number;
-  };
+  usage: APIUsageInfo;
+  headers: APIResponseHeaders;
 };
 
 export type ConversationSummaryInput = {
@@ -42,9 +44,6 @@ export type ConversationSummaryInput = {
 
 export type ConversationSummaryOutput = {
   summary: string;
-  usage: {
-    promptTokens: number;
-    completionTokens: number;
-    totalTokens: number;
-  };
+  usage: APIUsageInfo;
+  headers: APIResponseHeaders;
 };
