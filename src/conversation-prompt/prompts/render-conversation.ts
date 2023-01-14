@@ -1,6 +1,6 @@
+import { STATEMENT_SEPARATOR_TOKEN } from "./prompts.constants";
 import { Conversation } from "../../types";
 import { buildMention } from "../mention";
-import { STATEMENT_SEPARATOR_TOKEN } from "./prompts.constants";
 
 export const renderConversation = ({ summary, messages }: Conversation) => {
   const summaryText = summary

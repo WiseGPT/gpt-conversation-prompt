@@ -1,8 +1,8 @@
-import { AIPersona, Conversation } from "../../types";
 import { STATEMENT_SEPARATOR_TOKEN } from "./prompts.constants";
 import { renderAIPersona } from "./render-ai-persona";
 import { renderConversation } from "./render-conversation";
 import { renderFormatAndExamples } from "./render-format-and-examples";
+import { AIPersona, Conversation } from "../../types";
 
 export type CreateConversationSummaryPromptInput = {
   aiPersona: AIPersona;
