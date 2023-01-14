@@ -3,8 +3,6 @@ import {
   CreateCompletionResponseUsage,
   OpenAIApi,
 } from "openai";
-import { ConversationPromptServiceError } from "../error";
-import { APIResponseHeaders, APIUsageInfo } from "../types";
 import {
   ConversationCompleteInput,
   ConversationCompleteOutput,
@@ -15,6 +13,8 @@ import {
 import { createConversationCompletionPrompt } from "./prompts/create-conversation-completion-prompt";
 import { createConversationSummaryPrompt } from "./prompts/create-conversation-summary-prompt";
 import { STATEMENT_SEPARATOR_TOKEN } from "./prompts/prompts.constants";
+import { ConversationPromptServiceError } from "../error";
+import { APIResponseHeaders, APIUsageInfo } from "../types";
 
 type APIResponseSuccess = { usage?: CreateCompletionResponseUsage };
 type APIResponseError = { error: { message: string; type: string } };
