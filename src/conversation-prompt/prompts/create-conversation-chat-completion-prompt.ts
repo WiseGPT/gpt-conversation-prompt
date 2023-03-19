@@ -1,7 +1,7 @@
 import { ChatCompletionRequestMessage } from "openai";
+import { renderAIPersona } from "./render-ai-persona";
 import { renderConversationForChat } from "./render-conversation-for-chat";
 import { AIPersona, Conversation } from "../../types";
-import { renderAIPersona } from "./render-ai-persona";
 
 const CONVERSATION_SUMMARY_SUFFIX = `The conversations starts with a detailed summary of a previous conversation. While answering questions, take this summary into account. Summary:`;
 
