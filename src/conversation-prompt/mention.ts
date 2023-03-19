@@ -1,11 +1,11 @@
 import { Author } from "../types";
 
-export const BOT_MENTION = "<@bot>";
+export const ASSISTANT_MENTION = "<@assistant>";
 
 export const buildMention = (author: Author): string => {
   switch (author.type) {
     case "BOT":
-      return BOT_MENTION;
+      return ASSISTANT_MENTION;
     case "USER":
       return `<@${author.id}>`;
     default:

@@ -1,7 +1,7 @@
 import { STATEMENT_SEPARATOR_TOKEN } from "./prompts.constants";
 import { renderConversation } from "./render-conversation";
 import { Conversation } from "../../types";
-import { BOT_MENTION, buildMention } from "../mention";
+import { ASSISTANT_MENTION, buildMention } from "../mention";
 
 const CONVERSATION_FORMAT = `The conversations are in this format, there can be an arbitrary amount of newlines between chat entries. "<@id>" format is used to reference entities in the conversation, where "id" is replaced with message author's unique id. The text "${STATEMENT_SEPARATOR_TOKEN}" is used to separate chat entries and make it easier for you to understand the context:`;
 const CONVERSATION_FORMAT_WITH_EXAMPLE = `The conversations are in this format, there can be an arbitrary amount of newlines between chat entries. "<@id>" format is used to reference entities in the conversation, where "id" is replaced with message author's unique id. The text "${STATEMENT_SEPARATOR_TOKEN}" is used to separate chat entries and make it easier for you to understand the context. The conversations start with a "Summary:" which includes a detailed summary of messages in the same conversation. Summary ends with "${STATEMENT_SEPARATOR_TOKEN}":`;
@@ -22,7 +22,7 @@ const BASIC_EXAMPLE_CONVERSATIONS: Conversation[] = [
   {
     messages: [
       {
-        text: `hello ${BOT_MENTION}`,
+        text: `hello ${ASSISTANT_MENTION}`,
         author: { type: "USER", id: "U02" },
       },
       {

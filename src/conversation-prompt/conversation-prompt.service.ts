@@ -1,15 +1,20 @@
 import {
+  ChatCompletionRequestMessage,
+  CreateChatCompletionResponse,
   CreateCompletionResponse,
   CreateCompletionResponseUsage,
   OpenAIApi,
 } from "openai";
 import {
+  ConversationChatCompleteInput,
+  ConversationChatCompleteOutput,
   ConversationCompleteInput,
   ConversationCompleteOutput,
   ConversationSummaryInput,
   ConversationSummaryOutput,
   ModelConfiguration,
 } from "./conversation-prompt-service.dto";
+import { createConversationChatCompletionPrompt } from "./prompts/create-conversation-chat-completion-prompt";
 import { createConversationCompletionPrompt } from "./prompts/create-conversation-completion-prompt";
 import { createConversationSummaryPrompt } from "./prompts/create-conversation-summary-prompt";
 import { STATEMENT_SEPARATOR_TOKEN } from "./prompts/prompts.constants";
@@ -63,6 +68,23 @@ export class ConversationPromptService {
 
   constructor(private readonly openAIApi: OpenAIApi) {}
 
+  async chatCompletion(
+    input: ConversationChatCompleteInput
+  ): Promise<ConversationChatCompleteOutput> {
+    const messages = createConversationChatCompletionPrompt(input.prompt);
+
+    const {
+      firstChoice: text,
+      usage,
+      headers,
+    } = await this.makeChatCompletionRequest({
+      messages,
+      modelConfiguration: input.modelConfiguration,
+    });
+
+    return { text, usage, headers };
+  }
+
   async completion(
     input: ConversationCompleteInput
   ): Promise<ConversationCompleteOutput> {
@@ -94,6 +116,44 @@ export class ConversationPromptService {
     });
 
     return { summary, usage, headers };
+  }
+
+  // TODO: remove duplication
+  private async makeChatCompletionRequest(input: {
+    messages: Array<ChatCompletionRequestMessage>;
+    modelConfiguration: ModelConfiguration;
+  }) {
+    try {
+      const { data, headers }: APIResponse<CreateChatCompletionResponse> =
+        await this.openAIApi.createChatCompletion({
+          ...input.modelConfiguration,
+          max_tokens: input.modelConfiguration.max_tokens ?? undefined,
+          messages: input.messages,
+          n: 1,
+        });
+
+      const firstChoice = data.choices?.[0]?.message?.content?.trim()!;
+
+      return {
+        firstChoice,
+        usage: ConversationPromptService.extractAPIUsageInfo(data),
+        headers: ConversationPromptService.extractAPIResponseHeaders(headers),
+      };
+    } catch (err: unknown) {
+      if (ConversationPromptService.isErrorResponse(err)) {
+        const { message, type } = err.response.data.error;
+
+        throw new ConversationPromptServiceError(
+          err.response.status,
+          { message, type },
+          ConversationPromptService.extractAPIResponseHeaders(
+            err.response.headers
+          )
+        );
+      }
+
+      throw err;
+    }
   }
 
   private async makeCompletionRequest(input: {

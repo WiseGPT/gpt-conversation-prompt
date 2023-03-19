@@ -3,7 +3,7 @@ import { renderAIPersona } from "./render-ai-persona";
 import { renderConversation } from "./render-conversation";
 import { renderFormatAndExamples } from "./render-format-and-examples";
 import { AIPersona, Conversation } from "../../types";
-import { BOT_MENTION } from "../mention";
+import { ASSISTANT_MENTION } from "../mention";
 
 const CURRENT_CONVERSATION_PROMPT = `Continue the conversation, paying very close attention to things entities told you; such as their name, and personal details. Never say "${STATEMENT_SEPARATOR_TOKEN}". Current conversation:`;
 
@@ -22,11 +22,11 @@ export function createConversationCompletionPrompt({
 
   return (
     renderAIPersona(aiPersona) +
-    `\n${renderFormatAndExamples({
+    `\n\n${renderFormatAndExamples({
       hasSummary,
       exampleConversations,
     })}` +
     `\n\n${CURRENT_CONVERSATION_PROMPT}\n\n` +
-    (renderConversation(conversation) + `${BOT_MENTION}:`)
+    (renderConversation(conversation) + `${ASSISTANT_MENTION}:`)
   );
 }
