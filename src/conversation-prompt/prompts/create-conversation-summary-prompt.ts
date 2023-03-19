@@ -53,7 +53,7 @@ export const createConversationSummaryPrompt = ({
 
   return (
     renderAIPersona(aiPersona) +
-    `\n${renderFormatAndExamples({
+    `\n\n${renderFormatAndExamples({
       hasSummary,
     })}` +
     `\n\n${prompt}\n\n` +

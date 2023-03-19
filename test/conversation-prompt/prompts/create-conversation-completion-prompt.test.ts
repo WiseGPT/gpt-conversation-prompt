@@ -1,4 +1,9 @@
-import { AIPersona, Author, BOT_MENTION, buildMention } from "../../../src";
+import {
+  AIPersona,
+  Author,
+  ASSISTANT_MENTION,
+  buildMention,
+} from "../../../src";
 import { createConversationCompletionPrompt } from "../../../src/conversation-prompt/prompts/create-conversation-completion-prompt";
 
 describe("createConversationCompletionPrompt", () => {
@@ -70,8 +75,8 @@ describe("createConversationCompletionPrompt", () => {
           },
         })
       ).toMatchInlineSnapshot(`
-        "Instructions for <@bot>, this is how you should behave in a conversation, but this is not your personality:
-        Your name is "Lenard". You are referenced in conversations as "<@bot>".
+        "Instructions for <@assistant>, this is how you should behave in a conversation, but this is not your personality:
+        Your name is "Lenard". You are referenced in conversations as "<@assistant>".
         When providing code examples, use triple backticks.
 
         This is your personality:
@@ -80,20 +85,20 @@ describe("createConversationCompletionPrompt", () => {
         The conversations are in this format, there can be an arbitrary amount of newlines between chat entries. "<@id>" format is used to reference entities in the conversation, where "id" is replaced with message author's unique id. The text "<|endofstatement|>" is used to separate chat entries and make it easier for you to understand the context:
 
         <@EU01>: hello <|endofstatement|>
-        <@bot>: hello <@EU01>. how may I help you? <|endofstatement|>
+        <@assistant>: hello <@EU01>. how may I help you? <|endofstatement|>
         <@EU01>: how is it going? <|endofstatement|>
-        <@bot>: it's fine. thanks for asking. how about you? <|endofstatement|>
+        <@assistant>: it's fine. thanks for asking. how about you? <|endofstatement|>
 
         <@EU02>: hello, friend. <|endofstatement|>
-        <@bot>: hey there! hello to you too. <|endofstatement|>
+        <@assistant>: hey there! hello to you too. <|endofstatement|>
         ...
 
         Continue the conversation, paying very close attention to things entities told you; such as their name, and personal details. Never say "<|endofstatement|>". Current conversation:
 
         <@U01>: hello! <|endofstatement|>
-        <@bot>: hello <@U01>! how can I help you? <|endofstatement|>
+        <@assistant>: hello <@U01>! how can I help you? <|endofstatement|>
         <@U01>: can you write me fibonacci function in Typescript? <|endofstatement|>
-        <@bot>:"
+        <@assistant>:"
       `);
     });
   });
@@ -121,8 +126,8 @@ describe("createConversationCompletionPrompt", () => {
           },
         })
       ).toMatchInlineSnapshot(`
-        "Instructions for <@bot>, this is how you should behave in a conversation, but this is not your personality:
-        Your name is "Lenard". You are referenced in conversations as "<@bot>".
+        "Instructions for <@assistant>, this is how you should behave in a conversation, but this is not your personality:
+        Your name is "Lenard". You are referenced in conversations as "<@assistant>".
         When providing code examples, use triple backticks.
 
         This is your personality:
@@ -131,18 +136,18 @@ describe("createConversationCompletionPrompt", () => {
         The conversations are in this format, there can be an arbitrary amount of newlines between chat entries. "<@id>" format is used to reference entities in the conversation, where "id" is replaced with message author's unique id. The text "<|endofstatement|>" is used to separate chat entries and make it easier for you to understand the context:
 
         <@U01>: [MESSAGE 1] <|endofstatement|>
-        <@bot>: [RESPONSE TO MESSAGE 1] <|endofstatement|>
+        <@assistant>: [RESPONSE TO MESSAGE 1] <|endofstatement|>
 
-        <@U02>: hello <@bot> <|endofstatement|>
-        <@bot>: hello <@U02>! how are you? <|endofstatement|>
+        <@U02>: hello <@assistant> <|endofstatement|>
+        <@assistant>: hello <@U02>! how are you? <|endofstatement|>
         ...
 
         Continue the conversation, paying very close attention to things entities told you; such as their name, and personal details. Never say "<|endofstatement|>". Current conversation:
 
         <@U01>: hello! <|endofstatement|>
-        <@bot>: hello! how can I help you? <|endofstatement|>
+        <@assistant>: hello! how can I help you? <|endofstatement|>
         <@U01>: can you write me fibonacci function in Typescript? <|endofstatement|>
-        <@bot>:"
+        <@assistant>:"
       `);
     });
 
@@ -153,7 +158,7 @@ describe("createConversationCompletionPrompt", () => {
           conversation: {
             summary: `${buildMention(
               authors.user1
-            )} asked ${BOT_MENTION} whether it knows Typescript.`,
+            )} asked ${ASSISTANT_MENTION} whether it knows Typescript.`,
             messages: [
               {
                 author: authors.user1,
@@ -171,8 +176,8 @@ describe("createConversationCompletionPrompt", () => {
           },
         })
       ).toMatchInlineSnapshot(`
-        "Instructions for <@bot>, this is how you should behave in a conversation, but this is not your personality:
-        Your name is "Lenard". You are referenced in conversations as "<@bot>".
+        "Instructions for <@assistant>, this is how you should behave in a conversation, but this is not your personality:
+        Your name is "Lenard". You are referenced in conversations as "<@assistant>".
         When providing code examples, use triple backticks.
 
         This is your personality:
@@ -182,20 +187,20 @@ describe("createConversationCompletionPrompt", () => {
 
         Summary: [SUMMARY] <|endofstatement|>
         <@U01>: [MESSAGE 1] <|endofstatement|>
-        <@bot>: [RESPONSE TO MESSAGE 1] <|endofstatement|>
+        <@assistant>: [RESPONSE TO MESSAGE 1] <|endofstatement|>
 
         Summary: <@U02> is a Software Engineer named Yigitcan. <|endofstatement|>
-        <@U02>: hello <@bot> <|endofstatement|>
-        <@bot>: hello <@U02>! how are you? <|endofstatement|>
+        <@U02>: hello <@assistant> <|endofstatement|>
+        <@assistant>: hello <@U02>! how are you? <|endofstatement|>
         ...
 
         Continue the conversation, paying very close attention to things entities told you; such as their name, and personal details. Never say "<|endofstatement|>". Current conversation:
 
-        Summary: <@U01> asked <@bot> whether it knows Typescript. <|endofstatement|>
+        Summary: <@U01> asked <@assistant> whether it knows Typescript. <|endofstatement|>
         <@U01>: hello! <|endofstatement|>
-        <@bot>: hello! how can I help you? <|endofstatement|>
+        <@assistant>: hello! how can I help you? <|endofstatement|>
         <@U01>: can you write me fibonacci function in Typescript? <|endofstatement|>
-        <@bot>:"
+        <@assistant>:"
       `);
     });
   });

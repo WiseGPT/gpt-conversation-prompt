@@ -1,4 +1,9 @@
-import { AIPersona, Author, BOT_MENTION, buildMention } from "../../../src";
+import {
+  AIPersona,
+  Author,
+  ASSISTANT_MENTION,
+  buildMention,
+} from "../../../src";
 import { createConversationSummaryPrompt } from "../../../src/conversation-prompt/prompts/create-conversation-summary-prompt";
 
 describe("createConversationSummaryPrompt()", () => {
@@ -34,8 +39,8 @@ describe("createConversationSummaryPrompt()", () => {
         },
       })
     ).toMatchInlineSnapshot(`
-      "Instructions for <@bot>, this is how you should behave in a conversation, but this is not your personality:
-      Your name is "Lenard". You are referenced in conversations as "<@bot>".
+      "Instructions for <@assistant>, this is how you should behave in a conversation, but this is not your personality:
+      Your name is "Lenard". You are referenced in conversations as "<@assistant>".
       When providing code examples, use triple backticks.
 
       This is your personality:
@@ -44,16 +49,16 @@ describe("createConversationSummaryPrompt()", () => {
       The conversations are in this format, there can be an arbitrary amount of newlines between chat entries. "<@id>" format is used to reference entities in the conversation, where "id" is replaced with message author's unique id. The text "<|endofstatement|>" is used to separate chat entries and make it easier for you to understand the context:
 
       <@U01>: [MESSAGE 1] <|endofstatement|>
-      <@bot>: [RESPONSE TO MESSAGE 1] <|endofstatement|>
+      <@assistant>: [RESPONSE TO MESSAGE 1] <|endofstatement|>
 
-      <@U02>: hello <@bot> <|endofstatement|>
-      <@bot>: hello <@U02>! how are you? <|endofstatement|>
+      <@U02>: hello <@assistant> <|endofstatement|>
+      <@assistant>: hello <@U02>! how are you? <|endofstatement|>
       ...
 
       Summarize the conversation below. Make a detailed summary of the existing messages. Do not summarize the instructions or examples. Do not add anything extra or something that was not discussed. Do not repeat details. Pay close attention to the things that entities told you; especially their personal details and code details. Omit small talk and conversation status. Never say "<|endofstatement|>":
 
       <@U01>: hello! <|endofstatement|>
-      <@bot>: hello! how can I help you? <|endofstatement|>
+      <@assistant>: hello! how can I help you? <|endofstatement|>
       <@U01>: can you write me fibonacci function in Typescript? <|endofstatement|>
       ...
       Summary:"
@@ -67,7 +72,7 @@ describe("createConversationSummaryPrompt()", () => {
         conversation: {
           summary: `${buildMention(
             authors.user1
-          )} asked ${BOT_MENTION} whether it knows Typescript.`,
+          )} asked ${ASSISTANT_MENTION} whether it knows Typescript.`,
           messages: [
             {
               author: authors.user1,
@@ -85,8 +90,8 @@ describe("createConversationSummaryPrompt()", () => {
         },
       })
     ).toMatchInlineSnapshot(`
-      "Instructions for <@bot>, this is how you should behave in a conversation, but this is not your personality:
-      Your name is "Lenard". You are referenced in conversations as "<@bot>".
+      "Instructions for <@assistant>, this is how you should behave in a conversation, but this is not your personality:
+      Your name is "Lenard". You are referenced in conversations as "<@assistant>".
       When providing code examples, use triple backticks.
 
       This is your personality:
@@ -96,18 +101,18 @@ describe("createConversationSummaryPrompt()", () => {
 
       Summary: [SUMMARY] <|endofstatement|>
       <@U01>: [MESSAGE 1] <|endofstatement|>
-      <@bot>: [RESPONSE TO MESSAGE 1] <|endofstatement|>
+      <@assistant>: [RESPONSE TO MESSAGE 1] <|endofstatement|>
 
       Summary: <@U02> is a Software Engineer named Yigitcan. <|endofstatement|>
-      <@U02>: hello <@bot> <|endofstatement|>
-      <@bot>: hello <@U02>! how are you? <|endofstatement|>
+      <@U02>: hello <@assistant> <|endofstatement|>
+      <@assistant>: hello <@U02>! how are you? <|endofstatement|>
       ...
 
       Summarize the conversation below. Make a detailed summary which only consists of the previous summary and later messages. Do not summarize the instructions or examples. Do not add anything extra or something that was not discussed. Do not repeat details. Pay close attention to the things that entities told you; especially their personal details and code details. Omit small talk and conversation status. Never say "<|endofstatement|>":
 
-      Summary: <@U01> asked <@bot> whether it knows Typescript. <|endofstatement|>
+      Summary: <@U01> asked <@assistant> whether it knows Typescript. <|endofstatement|>
       <@U01>: hello! <|endofstatement|>
-      <@bot>: hello! how can I help you? <|endofstatement|>
+      <@assistant>: hello! how can I help you? <|endofstatement|>
       <@U01>: can you write me fibonacci function in Typescript? <|endofstatement|>
       ...
       Summary:"

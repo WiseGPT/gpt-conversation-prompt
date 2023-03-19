@@ -17,6 +17,21 @@ export type ModelConfiguration = Pick<
   | "frequency_penalty"
 >;
 
+export type ConversationChatCompleteInput = {
+  // prompt generation related details
+  prompt: {
+    aiPersona: AIPersona;
+    conversation: Conversation;
+  };
+  modelConfiguration: ModelConfiguration;
+};
+
+export type ConversationChatCompleteOutput = {
+  text: string;
+  usage: APIUsageInfo;
+  headers: APIResponseHeaders;
+};
+
 export type ConversationCompleteInput = {
   // prompt generation related details
   prompt: {
